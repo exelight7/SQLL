@@ -1,0 +1,29 @@
+#include <windows.h>
+1 VERSIONINFO
+FILEVERSION 3,2,4,7
+PRODUCTVERSION 3,2,4,7
+FILEFLAGSMASK 0x3fL
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_DLL
+FILESUBTYPE 0
+BEGIN
+ BLOCK "StringFileInfo"
+ BEGIN
+  BLOCK "040904b0"
+  BEGIN
+   VALUE "CompanyName", "exelight7 personal edition\0"
+   VALUE "FileDescription", "exelight7 BO3 Arabic / English interface - MXT111 MP3 aim and player overlay\0"
+   VALUE "FileVersion", "3.2.4.7\0"
+   VALUE "InternalName", "exelight7-3.2.4\0"
+   VALUE "OriginalFilename", "exelight7-3.2.4-MXT111-MP3.dll\0"
+   VALUE "ProductName", "exelight7\0"
+   VALUE "ProductVersion", "3.2.4\0"
+   VALUE "Comments", "Personal fork based on Scroptss / Scropts QOL.\0"
+  END
+ END
+ BLOCK "VarFileInfo"
+ BEGIN
+  VALUE "Translation", 0x0409, 1200
+ END
+END

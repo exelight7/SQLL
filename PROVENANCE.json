@@ -1,0 +1,12 @@
+{
+  "project": "SQLL / exelight7",
+  "edition": "MP3",
+  "file_version": "3.2.4.7",
+  "upstream_repository": "https://github.com/Scroptss/Scropts-QOL",
+  "upstream_reference_commit": "bbd4a19cead88372bb227d489a84d32c86a30e60",
+  "lineage": ["QOL 3.2.4", "MXT111 FIX1", "MXT111 OPT2", "MXT111 MP3"],
+  "publication": "Privacy-clean rebuild of the same MP3 gameplay source",
+  "gameplay_source_manifest": "GAMEPLAY_SOURCE_MANIFEST.json",
+  "live_public_multiplayer_tested": false,
+  "flight_implemented": false
+}

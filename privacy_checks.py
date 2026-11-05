@@ -1,0 +1,16 @@
+from privacy_scan import sensitive_kinds
+
+def kinds(value): return sensitive_kinds(value, 'private_actor')
+slash=chr(92)
+assert 'local-user-path' in kinds('C:'+slash+'Users'+slash+'example'+slash+'project')
+assert 'local-user-path' in kinds('/'+'home/'+'example/project')
+assert 'local-user-path' in kinds('/'+'Users/'+'example/project')
+assert 'build-account-name' in kinds('a private_'+'actor path')
+assert 'unexpected-literal-ipv4' in kinds('.'.join(['192','0','2','123']))
+assert 'unexpected-literal-ipv6' in kinds(':'.join(['2001','db8','','1234']))
+assert 'credential-pattern' in kinds('github'+'_'+'pat'+'_'+('A'*50))
+assert 'credential-pattern' in kinds('-----BEGIN '+'PRIVATE KEY')
+assert not kinds('PageUp/PageDown/'+'Home/End keys')
+assert not kinds('C::f and ::e C++ labels')
+assert not kinds('MP3 version 3.2.4.7')
+print('PASS: synthetic user paths, account names, IPv4/IPv6, tokens and private-key markers detected; key names, C++ labels and release versions accepted. Matched values never printed.')
