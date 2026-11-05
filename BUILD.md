@@ -21,7 +21,7 @@ python verify_artifact.py
 
 The environment value names the folder containing `bin`. The DLL is `build/exelight7-3.2.4-MXT111-MP3.dll`. Public verification and privacy reports are generated under `build`. Start with a fresh build directory when changing toolchains.
 
-`build_paths.py` applies compiler file/debug prefix mapping to both the main project and rebuilt dependencies. `GAMEPLAY_SOURCE_MANIFEST.json` verifies that the gameplay source is identical to the adopted MP3 source. The publication rebuild changes build-path handling, not gameplay features.
+`build_paths.py` applies compiler file/debug prefix mapping to both the main project and rebuilt dependencies. `GAMEPLAY_SOURCE_MANIFEST.json` verifies the adopted MP3 source using original hashes or text hashes normalized for Git CRLF/LF conversion. Binary assets require exact hashes. The publication rebuild changes build-path handling, not gameplay features.
 
 The compiler rejects unsafe non-POD varargs and format errors. The test programs use synthetic data. UI/ESP tests substitute a denying SendInput stub, and the artifact check loads the DLL only into a disposable unsupported Python process. They do not start BO3, send mouse input, or connect to a server. In-game operation remains unverified.
 

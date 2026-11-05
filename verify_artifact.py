@@ -40,7 +40,11 @@ else: raise SystemExit("Unexpected load in unsupported host")
 p=subprocess.run([sys.executable,'-c',loader,str(dll)],capture_output=True,text=True,timeout=20)
 assert p.returncode==0,p.stdout+p.stderr
 manifest=json.loads((root/'GAMEPLAY_SOURCE_MANIFEST.json').read_text(encoding='utf-8'))
-for name,digest in manifest['source_files'].items():assert hashlib.sha256((root/name).read_bytes()).hexdigest()==digest,name
+for name,digest in manifest['source_files'].items():
+    raw=(root/name).read_bytes()
+    if hashlib.sha256(raw).hexdigest()!=digest:
+        assert b'\0' not in raw,name
+        assert hashlib.sha256(raw.replace(b'\r\n',b'\n')).hexdigest()==manifest['newline_normalized_source_files'][name],name
 tests={}
 for name in ['mp3-checks','mp3-ui-checks','mp3-overlay-checks','optimization-checks','stability-checks','notification-checks','varargs-regression','format-regression','ui-checks','runtime-checks']:
     lines=(build/(name+'.txt')).read_text(encoding='utf-8').splitlines();assert lines and lines[0].startswith('PASS:')
@@ -50,7 +54,7 @@ privacy=scan(root,[dll]);assert privacy['passed'],privacy['findings']
 report={'filename':dll.name,'version':'3.2.4.7','edition':'MP3','sha256':hashlib.sha256(data).hexdigest(),'size':len(data),
         'architecture':'x64','aslr_nx_high_entropy':True,'no_writable_executable_pe_sections':True,
         'unsupported_host_rejection':True,'tests':tests,'gameplay_source_identity_verified':True,
-        'gameplay_source_files_verified':len(manifest['source_files']),'privacy_scan':privacy,
+        'gameplay_source_files_verified':len(manifest['source_files']),'source_comparison':'SHA256 with CRLF/LF normalization allowed for text only','privacy_scan':privacy,
         'provenance':json.loads((root/'PROVENANCE.json').read_text(encoding='utf-8')),
         'aim_and_esp_tested_in_game':False,'flight_implemented':False,
         'limits':'Standalone checks only. Public multiplayer behavior and complete runtime stability remain unverified.'}
